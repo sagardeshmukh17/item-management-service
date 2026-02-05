@@ -1,124 +1,133 @@
-# Item Management Service
+Item Management Service
 
-A simple **Spring Boot** backend application that implements a **RESTful API** for managing a collection of items using **in-memory storage**.
+A simple Spring Boot backend application that implements a RESTful REST API for managing a collection of items using in-memory storage (ArrayList).
 
----
+This project demonstrates basic backend concepts such as REST APIs, input validation, in-memory data handling, and cloud deployment using Docker.
 
-## Table of Contents
+Tech Stack
 
-- [Project Setup](#project-setup)  
-- [Running the Application](#running-the-application)  
-- [API Endpoints](#api-endpoints)  
-- [Validation](#validation)  
-- [Sample Requests & Responses](#sample-requests--responses)  
-- [Deployment](#deployment)
+Java 17
+Spring Boot
+Spring Web
+Spring Validation
+Docker
+Render (Cloud Hosting)
 
----
+Project Structure
+src/main/java/com/sagar/itemmanagement
+│
+├── controller
+│   └── ItemController.java
+│
+├── model
+│   └── Item.java
+│
+├── store
+│   └── ItemStore.java
+│
+└── ItemManagementServiceApplication.java
 
-## Project Setup
+Features
 
-**Project Name:** `item-management-service`  
-**Base Package:** `com.sagar.itemmanagement`  
-**Java Version:** 17  
-**Dependencies:** 
-- Spring Web  
-- Validation 
-- Devtool 
+Add a new item
+Get item by ID
 
-**Packages:**
-- `model` → `Item.java`  
-- `controller` → `ItemController.java`  
-- `store` → `ItemStore.java`
+In-memory data storage (ArrayList)
 
----
+Input validation
 
-## Running the Application
+RESTful API design
 
-1. Ensure **Java 17** is installed.  
-2. Clone or extract the project folder.  
-3. Open in **STS / IntelliJ IDEA**.  
-4. Run the main class:
-```bash
+Dockerized & deployed on Render
+
+Running the Application Locally
+Prerequisites:-
+
+Java 17 installed
+Maven installed (or use IDE)
+
+Steps:-
+
+Clone the repository:
+git clone https://github.com/sagardeshmukh17/item-management-service.git
+Open the project in IntelliJ IDEA / STS
+Run the main class:
 ItemManagementServiceApplication.java
 
-### Run Using Docker (Recommended)
 
-Build the Docker image:
+Application will start on: http://localhost:8080
+
+Running Using Docker (Local)
+Build Docker image:
 docker build -t item-management-service .
 
-Run the container:
+Run container:
 docker run -p 8080:8080 item-management-service
 
 
+Application will be available at: http://localhost:8080
 
-Application will start on http://localhost:8080
+API Endpoints (Local):-
+Add New Item
+POST: http://localhost:8080/items
 
-***Sample Requests & Responses***
-POST:-  http://localhost:8080/items
-
-Request:
+Request Body
 
 {
-  "name": "iPhone 14",
+  "name": "iPhone 16",
   "description": "Apple smartphone"
 }
 
 
-Response (201 Created):
+Response (201 Created)
 
 {
-  "name": "iPhone 14",
-  "description": "Apple smartphone",
-  "id": 1
+  "id": 1,
+  "name": "iPhone 16",
+  "description": "Apple smartphone"
 }
 
-GET:- http://localhost:8080/items/1
+Get Item by ID
+GET: http://localhost:8080/items/1
 
-Response (200 OK):
+Non-Existing Item
+GET: http://localhost:8080/items/999
+Response: 404 Not Found
 
-{
-  "name": "iPhone 14",
-  "description": "Apple smartphone",
-  "id": 1
-}
+Input Validation
+name field is mandatory
+Blank or missing name results in 400 Bad Request
 
-
-GET:- http://localhost:8080/items/999 (non-existing)
-
-Response (404 Not Found):
-
-(empty body)
-
-
-POST /items with blank name
-
-Request:
+Example:
 
 {
   "name": "",
   "description": "Test"
 }
 
+Live Deployment (Render)
+The application is deployed as a Dockerized Web Service on Render.
 
-Response (400 Bad Request):
+Live Base URL:- https://item-management-service.onrender.com
 
-{
-  "timestamp": "...",
-  "status": 400,
-  "error": "Bad Request",
-  "message": "Validation failed for object='item'. Error count: 1",
-  "path": "/items"
-}
+Live API Endpoints
+Add New Item
 
+POST:- https://item-management-service.onrender.com/items
 
-## Deployment
+Get Item by ID
+GET:- https://item-management-service.onrender.com/items/1
 
-The application is containerized using Docker and deployed as a Web Service on Render.
+Important Note
+This application is hosted on Render Free Tier.
+The first request may take 30–50 seconds due to cold start.
 
-- Source Code: GitHub repository
-- Build Type: Docker
-- Platform: Render
-- Runtime Port: 8080
+Implementation Notes:-
+Uses ArrayList as in-memory data store
+No database used (as per requirement)
+IDs are auto-generated in memory
+Data resets when application restarts
 
-After deployment, the API can be accessed using the public Render URL.
-
+Author
+Sagar Deshmukh
+Java Backend Developer
