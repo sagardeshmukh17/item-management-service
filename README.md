@@ -41,6 +41,15 @@ A simple **Spring Boot** backend application that implements a **RESTful API** f
 ```bash
 ItemManagementServiceApplication.java
 
+### Run Using Docker (Recommended)
+
+Build the Docker image:
+docker build -t item-management-service .
+
+Run the container:
+docker run -p 8080:8080 item-management-service
+
+
 
 Application will start on http://localhost:8080
 
@@ -102,4 +111,14 @@ Response (400 Bad Request):
 }
 
 
+## Deployment
+
+The application is containerized using Docker and deployed as a Web Service on Render.
+
+- Source Code: GitHub repository
+- Build Type: Docker
+- Platform: Render
+- Runtime Port: 8080
+
+After deployment, the API can be accessed using the public Render URL.
 
